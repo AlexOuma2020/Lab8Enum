@@ -1,12 +1,12 @@
 package ru.spmi.temnov.lab8;
 
-public enum Fridge {
+public enum Fridge {//класс холодильник
     WHITEF(RandomGenerator.getRandomComp(), "Белый"),
     BLACKF(RandomGenerator.getRandomComp(), "Черный"),
     GREYF(RandomGenerator.getRandomComp(), "Серый");
 
-    private String name;
-    private final String color;
+    private String name;//название фирмы
+    private final String color;//цвет
 
     Fridge(String name, String color) {
         this.name = name;
