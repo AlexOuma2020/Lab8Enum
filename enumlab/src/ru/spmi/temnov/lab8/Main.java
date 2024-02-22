@@ -1,11 +1,12 @@
 package ru.spmi.temnov.lab8;
 
 import java.io.*;
+import java.util.StringJoiner;
 
 public class Main {//основной класс
     private boolean found(String needed){//поиск совпадения с названием фирмы - соотвествие сроки одному из названий
-        for (String firm: RandomGenerator.getAll()){
-            if (needed.equals(firm))
+        for (Company comp: Company.values()){
+            if (comp.getName().equals(needed))
                 return true;
         }
         return false;
@@ -14,14 +15,12 @@ public class Main {//основной класс
     private void printList(){//вывод списка товаров
         System.out.println("Список телевизоров: ");
         for (TV tv: TV.values()){
-            System.out.print(tv + " -> ");
-            tv.show();
+            System.out.print(tv);
         }
 
         System.out.println("\nСписок холодильников: ");
         for (Fridge fridge: Fridge.values()){
-            System.out.print(fridge + " -> ");
-            fridge.show();
+            System.out.print(fridge);
         }
 
         System.out.println();
@@ -36,7 +35,12 @@ public class Main {//основной класс
 
         do{
             excep = true;
-            System.out.print("Введите название фирмы, количество товаров которой хотите узнать {LG, Haier, Sharp, Samsung, Bosch, Siemens, Hitachi}: ");
+            System.out.print("Введите название фирмы, количество товаров которой хотите узнать {");
+            StringJoiner sj = new StringJoiner(", ");
+            for (Company comp: Company.values()){
+                sj.add(comp.getName());
+            }
+            System.out.println(sj.toString() + "} :");
 
             try {
                 needed = inputCompany();
@@ -58,12 +62,12 @@ public class Main {//основной класс
         int num = 0;
 
         for (TV tv: TV.values()) {
-            if (tv.getName().equals(str))
+            if(str.equals(tv.getName()))
                 ++num;
         }
 
         for (Fridge fridge: Fridge.values()){
-            if (fridge.getName().equals(str))
+            if (str.equals(fridge.getName()))
                 ++num;
         }
 

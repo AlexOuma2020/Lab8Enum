@@ -1,26 +1,24 @@
 package ru.spmi.temnov.lab8;
 
 public enum TV {//класс телевизор
-    SMALLTV(RandomGenerator.getRandomComp(), 24),
-    MIDTV(RandomGenerator.getRandomComp(), 45),
-    BIGTV(RandomGenerator.getRandomComp(), 65);
+    LG_43UR(Company.LG, 43),
+    Samsung_QN85QN(Company.SAMSUNG, 85),
+    Sharp_LC55(Company.SHARP, 55);
 
-    private final int screen;//диагональ экрана
-    private String name;//название фирмы
-
-    TV(String name, int screen) {
+    TV(Company name, int screen) {
         this.name = name;
         this.screen = screen;
     }
 
-    public void show() {
-        System.out.printf("Телевизор фирмы %s с диагональю %d\n", this.name, this.screen);
+    @Override
+    public String toString() {
+        return "Телевизор фирмы " + name + " с диагональю = " + screen + '\n';
     }
 
     public String getName() {
-        return this.name;
+        return this.name.toString();
     }
-    public void setName(String string){
-        name = string;
-    }
+
+    private final int screen;//диагональ экрана
+    private Company name;//название фирмы
 }

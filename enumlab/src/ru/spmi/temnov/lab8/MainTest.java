@@ -22,29 +22,6 @@ class MainTest {//класс тестов для всех методов и ме
     }
 
     @Test
-    void companyGetRandomTest(){ //проверка корректности получения случайного значения
-        try {
-            Method method = Main.class.getDeclaredMethod("found", String.class);//для привтного метода
-            method.setAccessible(true);
-            assertTrue((Boolean) method.invoke(m, RandomGenerator.getRandomComp()));
-            System.out.println("Случайное значение массива company работает корректно\n");
-
-        } catch (NoSuchMethodException e) {
-            System.out.println("Нет такого метода! " + e);
-
-        } catch (InvocationTargetException | IllegalAccessException e) {
-            throw new RuntimeException(e);
-        }
-
-    }
-
-    @Test
-    void companyGetAllTest(){//проверка возврата массива названий-фирм
-        assertArrayEquals(new String[]{"LG", "Haier", "Sharp", "Samsung", "Bosch", "Siemens", "Hitachi"}, RandomGenerator.getAll());
-        System.out.println("Получение массива фирм работает корректно\n");
-    }
-
-    @Test
     public void testFound1(){//проверка метода found на совпадение с существующей фирмой
         try {
             Method method = Main.class.getDeclaredMethod("found", String.class);
@@ -139,18 +116,17 @@ class MainTest {//класс тестов для всех методов и ме
     private HashMap<String, Integer> countCheck(){//локальный подсчет количества товаров
         HashMap<String, Integer> hashMap = new HashMap<>();
 
-        for (String st: RandomGenerator.getAll()){
+        for (Company comp: Company.values()){
             Integer num = 0;
-
             for (TV tv: TV.values())
-                if (tv.getName().equals(st))
+                if (tv.getName().equals(comp.getName()))
                     ++num;
 
             for (Fridge fr: Fridge.values())
-                if (fr.getName().equals(st))
+                if (fr.getName().equals(comp.getName()))
                     ++num;
 
-            hashMap.put(st, num);
+            hashMap.put(comp.getName(), num);
         }
 
         return hashMap;
@@ -158,7 +134,6 @@ class MainTest {//класс тестов для всех методов и ме
 
     @Test
     public void countTest() throws RuntimeException {//проверка корректности расчета вычисляемого показателя
-        System.out.println("Случайные значения!\n");
 
         try {
             HashMap<String, Integer> countFirm = countCheck();
@@ -170,10 +145,10 @@ class MainTest {//класс тестов для всех методов и ме
             method = Main.class.getDeclaredMethod("count", String.class);
             method.setAccessible(true);
 
-            for (String st: RandomGenerator.getAll()){
-                int numOfApps = (int) method.invoke(m, st);
-                assertEquals(countFirm.get(st), numOfApps);
-                System.out.printf("Количество товаров компании %s равно %d\n", st, numOfApps);
+            for (Company comp: Company.values()){
+                int numOfApps = (int) method.invoke(m, comp.getName());
+                assertEquals(countFirm.get(comp.getName()), numOfApps);
+                System.out.printf("Количество товаров компании %s равно %d\n", comp.getName(), numOfApps);
             }
 
             System.out.println();

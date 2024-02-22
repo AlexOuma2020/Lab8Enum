@@ -1,27 +1,24 @@
 package ru.spmi.temnov.lab8;
 
 public enum Fridge {//класс холодильник
-    WHITEF(RandomGenerator.getRandomComp(), "Белый"),
-    BLACKF(RandomGenerator.getRandomComp(), "Черный"),
-    GREYF(RandomGenerator.getRandomComp(), "Серый");
+    HaierCF2(Company.HAIER, "Белый"),
+    LG_GCB509(Company.LG, "Черный"),
+    Bosch_49KGNXL(Company.BOSCH, "Серый");
 
-    private String name;//название фирмы
-    private final String color;//цвет
-
-    Fridge(String name, String color) {
+    Fridge(Company name, String color) {
         this.name = name;
         this.color = color;
     }
 
-    public void show() {
-        System.out.printf("Холодильник фирмы %s. Цвет = %s\n", this.name, this.color);
+    @Override
+    public String toString() {
+        return "Холодильник фирмы " + name + ". Цвет = " + color + '\n';
     }
 
     public String getName() {
-        return this.name;
+        return this.name.toString();
     }
 
-    public void setName(String string){
-        name = string;
-    }
+    private Company name;//название фирмы
+    private final String color;//цвет
 }
